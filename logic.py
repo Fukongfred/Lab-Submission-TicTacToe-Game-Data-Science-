@@ -1,7 +1,7 @@
 import csv
 import os
-from datetime import datetime
 import random
+from datetime import datetime
 
 class Logger:
     def __init__(self, file_name='game_log.csv'):
@@ -23,9 +23,7 @@ class Logger:
                 'winner': winner,
                 'moves': moves,
                 'first_move_type': first_move_type,
-            })\
-
-import random
+            })
 
 class Player:
     def __init__(self, symbol):
@@ -61,6 +59,7 @@ class Game:
         self.other_player = player2
         self.logger = Logger()
         self.move_count = 0
+        self.first_move_type = None
 
     def make_empty_board(self):
         return [[None, None, None] for _ in range(3)]
@@ -77,10 +76,9 @@ class Game:
         if board[0][2] == board[1][1] == board[2][0] and board[0][2] is not None:
             return board[0][2]
         return None
-    
-    def is_draw(self):
-      return all(cell is not None for row in self.board for cell in row) and self.get_winner() is None
 
+    def is_draw(self):
+        return all(cell is not None for row in self.board for cell in row) and self.get_winner() is None
 
     def display_board(self):
         for row in self.board:
@@ -109,11 +107,4 @@ class Game:
             self.move_count += 1
             winner = self.get_winner()
             if winner is None and not self.is_draw():
-              self.switch_player()
-        self.display_board()
-        if winner:
-          print(f"{winner} has won!")
-        else:
-          print("The game is a draw!")
-          winner = 'D'
-        self.logger.log_game(self.current_player.symbol, self.other_player.symbol, winner, self.move_count, self.first_move_type)
+                self.switch
