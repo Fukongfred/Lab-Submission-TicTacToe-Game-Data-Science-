@@ -76,7 +76,7 @@ class Game:
         if board[0][2] == board[1][1] == board[2][0] and board[0][2] is not None:
             return board[0][2]
         return None
-    
+
     def is_draw(self):
       return all(cell is not None for row in self.board for cell in row) and self.get_winner() is None
 
@@ -89,7 +89,7 @@ class Game:
     def play_turn(self, player):
         row, col = player.move(self.board)
         self.board[row][col] = player.symbol
-        if self.move_count == 0: 
+        if self.move_count == 0:
             if (row, col) in [(0, 0), (0, 2), (2, 0), (2, 2)]:
                 self.first_move_type = 'corner'
             elif (row, col) == (1, 1):
@@ -130,7 +130,7 @@ from google.colab import files
 log_df = pd.read_csv('game_log.csv')
 
 log_df['win'] = log_df['winner'] == log_df['player1']
-log_df['win'] = log_df['win'].astype(int) 
+log_df['win'] = log_df['win'].astype(int)
 log_df['moves'] = pd.to_numeric(log_df['moves'])
 players = pd.unique(log_df[['player1', 'player2']].values.ravel('K'))
 
@@ -155,7 +155,7 @@ player_ranks = win_counts.sort_values(ascending=False)
 
 # 2. Wins/Losses/Draws per Player
 loss_counts = log_df[(log_df['winner'] != 'D') & (log_df['winner'] != '')]['winner'].value_counts()
-draw_counts = log_df['winner'].value_counts()['D']
+draw_counts = log_df['winner'].value_counts()
 win_loss_draw = pd.DataFrame({'Wins': win_counts, 'Losses': loss_counts, 'Draws': draw_counts})
 
 # 3. Average Play Time to Win (using the number of moves as a proxy for time)
